@@ -1,0 +1,40 @@
+﻿@using SettingsApp.Models
+@using System.Linq
+
+
+<div style="margin-top: 12px;">
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th style="text-align: left; border-bottom: 1px solid #ddd; padding: 6px;">Feature</th>
+                <th style="text-align: left; border-bottom: 1px solid #ddd; padding: 6px;">Enabled</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var flag in Flags)
+            {
+                <tr @key="flag.Name">
+                    <td style="border-bottom: 1px solid #eee; padding: 6px;">@flag.Name</td>
+                    <td style="border-bottom: 1px solid #eee; padding: 6px;">
+                        <input type="checkbox"
+                               checked="@flag.IsEnabled" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    [Parameter] public List<FeatureFlag> Flags { get; set; } = new();
+
+    private async Task ToggleFlag(FeatureFlag flag, ChangeEventArgs e)
+    {
+        var newValue = e?.Value is bool b ? b : bool.TryParse(e?.Value?.ToString(), out var parsed) && parsed;
+
+        if (flag.IsEnabled == newValue)
+            return;
+
+        flag.IsEnabled = newValue;
+    }
+}

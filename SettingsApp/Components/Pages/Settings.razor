@@ -1,0 +1,32 @@
+﻿@using SettingsApp.Models
+@using SettingsApp.Components.Elements
+@using Radzen.Blazor
+@page "/"
+
+<h3>Settings</h3>
+
+@if (_showAdvancedSettings)
+{
+    <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+        <h4>Advanced Settings</h4>
+        <p>These settings are only visible when the feature is enabled.</p>
+    </div>
+}
+
+<!-- Add FeatureFlagList component here -->
+
+@code {
+    private bool _showAdvancedSettings;
+
+    private readonly List<FeatureFlag> _featureFlags = new()
+    {
+        new FeatureFlag { Name = "ShowAdvancedSettings", IsEnabled = false },
+        new FeatureFlag { Name = "AuditLogging", IsEnabled = true },
+        new FeatureFlag { Name = "BetaSearch", IsEnabled = false }
+    };
+
+    private void OnShowAdvancedSettingsChanged(bool enabled)
+    {
+        _showAdvancedSettings = enabled;
+    }
+}
