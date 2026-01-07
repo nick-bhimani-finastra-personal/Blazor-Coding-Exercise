@@ -9,4 +9,11 @@ You are working on an existing **Settings** page in a Blazor application. Your t
 
 2. **Advanced Settings Toggle**  
    If **Advanced Settings** is checked, the advanced settings section must appear on the main settings page.  
-   This behavior is triggered by calling:
+   This behavior is triggered by calling OnShowAdvancedSettingsChanged(bool enabled)
+
+3. **Dependent Feature Behavior**  
+If **Advanced Settings** is enabled, the checkbox for **Beta Search** must be disabled.
+
+4. **Component Integration**  
+Add the **Feature Flag List** component to the Settings page.
+
